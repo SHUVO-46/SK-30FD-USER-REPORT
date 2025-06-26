@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UID Report System - SK SHUVOJIT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-section">
+        <h2>LOGIN</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <p id="login-error"></p>
+    </div>
+
+    <div id="dashboard" style="display: none;">
+        <h1>☠️ SK-SHUVOJIT ☠️</h1>
+        <h2>Welcome, <span id="display-name"></span></h2>
+        <h3>DATE : 28/06/2025</h3>
+        <h3>30+ Friends Two Factor Id</h3>
+        <h3>SINGLE RATE : 9.50 TK</h3>
+        <h3>ADMIN RATE : 10.00 TK</h3>
+        <textarea id="uid-input" placeholder="Paste UID list here..."></textarea>
+        <button onclick="processUID()">Submit</button>
+
+        <div id="report">
+            <h3>Report</h3>
+            <p>Total UID: <span id="total-uid">0</span></p>
+            <p>✅ OK UID: <span id="ok-uid">0</span> <button onclick="copyOK()">Copy</button></p>
+            <p>🚫 Back UID: <span id="back-uid">0</span> <button onclick="copyBack()">Copy</button></p>
+            <p>🔁 Duplicate UID: <span id="duplicate-uid">0</span> <button onclick="copyDuplicate()">Copy</button></p>
+            <p>💵 Total Amount: <span id="amount">0</span> TK</p>
+            <button onclick="downloadReport()">Download TXT Report</button>
+            
+            <table id="result-table">
+                <thead>
+                    <tr>
+                        <th>UID</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+<script src="users.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

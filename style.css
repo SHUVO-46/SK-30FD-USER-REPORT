@@ -1,0 +1,44 @@
+body {
+    background: black;
+    color: lime;
+    font-family: monospace;
+    text-align: center;
+    padding: 20px;
+}
+
+input, textarea {
+    background: black;
+    color: lime;
+    border: 1px solid lime;
+    padding: 5px;
+    margin: 5px;
+    width: 300px;
+}
+
+button {
+    background: lime;
+    color: black;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#result-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+#result-table th, #result-table td {
+    border: 1px solid lime;
+    padding: 5px;
+}
+
+.ok {
+    color: lime;
+}
+
+.back {
+    color: red;
+}
