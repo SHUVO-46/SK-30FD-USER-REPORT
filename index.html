@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UID Report System - SK SHUVOJIT</title>
+    <title>28/06/2025 Date Report - SK SHUVOJIT</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="login-section">
-        <h2>LOGIN</h2>
+        <h3>LOGIN</h3>
         <input type="text" id="username" placeholder="Username">
         <input type="password" id="password" placeholder="Password">
         <button onclick="login()">Login</button>
@@ -16,23 +16,23 @@
     </div>
 
     <div id="dashboard" style="display: none;">
-        <h1>☠️ SK-SHUVOJIT ☠️</h1>
+        <h1>☠ SK-SHUVOJIT ☠</h1>
         <h2>Welcome, <span id="display-name"></span></h2>
-        <h3>DATE : 28/06/2025</h3>
         <h3>30+ Friends Two Factor Id</h3>
-        <h3>SINGLE RATE : 9.50 TK</h3>
-        <h3>ADMIN RATE : 10.00 TK</h3>
+        <p>ID SUBMIT DATE : 28/06/2025</p>
+        <p>SINGLE RATE : 9.50 TK</p>
+        <p>ADMIN RATE : 10.00 TK</p>
         <textarea id="uid-input" placeholder="Paste UID list here..."></textarea>
-        <button onclick="processUID()">Submit</button>
+        <button onclick="processUID()">SUBMIT</button>
 
         <div id="report">
-            <h3>Report</h3>
+            <h3>REPORT</h3>
             <p>Total UID: <span id="total-uid">0</span></p>
-            <p>✅ OK UID: <span id="ok-uid">0</span> <button onclick="copyOK()">Copy</button></p>
-            <p>🚫 Back UID: <span id="back-uid">0</span> <button onclick="copyBack()">Copy</button></p>
-            <p>🔁 Duplicate UID: <span id="duplicate-uid">0</span> <button onclick="copyDuplicate()">Copy</button></p>
+            <p>✅ OK UID: <span id="ok-uid">0</span></p>
+            <p>🚫 Back UID: <span id="back-uid">0</span></p>
+            <p>🔁 Duplicate UID: <span id="duplicate-uid">0</span></p>
             <p>💵 Total Amount: <span id="amount">0</span> TK</p>
-            <button onclick="downloadReport()">Download TXT Report</button>
+            <button onclick="downloadReport()">Download Report File</button>
             
             <table id="result-table">
                 <thead>
