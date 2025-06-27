@@ -5,6 +5,7 @@ const users = [
     { username: 'partho0000', password: 'Partho000', name: 'Partho Sarkar' },
     { username: 'tufan', password: 'admin07', name: 'TUFAN (SUB-ADMIN)' },
     { username: 'Nitish', password: '347685', name: 'Nitish Kumar' },
+    { username: 'Samiran', password: 'Samiran60', name: 'Samiran Mondal' },
     { username: 'Bappy0203', password: 'Bappy2003', name: 'Ariyan Bappy' },
     { username: 'Arpon', password: 'arpon@#23', name: 'Arpon Roy' },
     { username: 'rana120', password: '@@rana12', name: 'Rana Vai' },
