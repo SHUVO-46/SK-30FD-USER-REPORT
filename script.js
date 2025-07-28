@@ -1,12 +1,13 @@
 function login() {
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
     const found = users.find(u => u.username === user && u.password === pass);
 
     if (found) {
         document.getElementById("login-section").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
         document.getElementById("display-name").innerText = found.name;
+        document.getElementById("today-date").innerText = new Date().toLocaleDateString();
     } else {
         document.getElementById("login-error").innerText = "Invalid Credentials!";
     }
@@ -16,74 +17,99 @@ function processUID() {
     const input = document.getElementById("uid-input").value.trim();
     if (!input) return;
 
-    const uidArray = input.split(/\s+/);
-    const uniqueUIDs = [...new Set(uidArray)];
-    const duplicates = uidArray.length - uniqueUIDs.length;
-
-    let ok = [], back = [];
-    uniqueUIDs.forEach(uid => {
-        if (okUIDs.includes(uid)) ok.push(uid);
-        else back.push(uid);
+    const lines = input.split("\n");
+    const uidPassPairs = lines.map(line => {
+        const parts = line.trim().split(/\s+/);
+        return { uid: parts[0], pass: parts[1] || "N/A" };
     });
 
-    document.getElementById("total-uid").innerText = uniqueUIDs.length;
+    const seenUIDs = new Set();
+    const duplicates = new Set();
+    const ok = [];
+    const back = [];
+
+    uidPassPairs.forEach(entry => {
+        if (seenUIDs.has(entry.uid)) {
+            duplicates.add(entry.uid);
+            return;
+        }
+        seenUIDs.add(entry.uid);
+        if (okUIDs.includes(entry.uid)) ok.push(entry);
+        else back.push(entry);
+    });
+
+    document.getElementById("total-uid").innerText = uidPassPairs.length;
     document.getElementById("ok-uid").innerText = ok.length;
     document.getElementById("back-uid").innerText = back.length;
-    document.getElementById("duplicate-uid").innerText = duplicates;
+    document.getElementById("duplicate-uid").innerText = duplicates.size;
 
-    const rate = ok.length < 100 ? 6.50 : 7.00;
+    const rate = ok.length < 100 ? 12.00 : 12.50;
     const amount = ok.length * rate;
     document.getElementById("amount").innerText = amount;
 
     const tbody = document.querySelector("#result-table tbody");
     tbody.innerHTML = "";
-    ok.forEach(uid => {
-        const row = `<tr><td>${uid}</td><td class="ok"> OK</td></tr>`;
-        tbody.innerHTML += row;
+
+    ok.forEach(entry => {
+        tbody.innerHTML += `<tr><td>${entry.uid}</td><td>${entry.pass}</td><td class="ok">OK</td></tr>`;
     });
-    back.forEach(uid => {
-        const row = `<tr><td>${uid}</td><td class="back"> Back</td></tr>`;
-        tbody.innerHTML += row;
+
+    back.forEach(entry => {
+        tbody.innerHTML += `<tr><td>${entry.uid}</td><td>${entry.pass}</td><td class="back">BACK</td></tr>`;
     });
 }
 
-function copyOK() {
-    const ok = [];
-    document.querySelectorAll(".ok").forEach(td => {
-        ok.push(td.parentElement.firstChild.textContent);
+function copyUIDs(type) {
+    const rows = document.querySelectorAll("#result-table tbody tr");
+    let data = [];
+
+    rows.forEach(row => {
+        const uid = row.children[0].innerText;
+        const pass = row.children[1].innerText;
+        const status = row.children[2].innerText;
+
+        if ((type === 'ok' && status === 'OK') ||
+            (type === 'back' && status === 'BACK')) {
+            data.push(`${uid}\t${pass}`);
+        }
     });
-    navigator.clipboard.writeText(ok.join("\n"));
+
+    if (type === 'duplicate') {
+        const input = document.getElementById("uid-input").value.trim();
+        const uidArray = input.split(/\s+/);
+        const seen = {};
+        const duplicates = [];
+
+        uidArray.forEach(uid => {
+            if (seen[uid]) duplicates.push(uid);
+            else seen[uid] = true;
+        });
+
+        data = duplicates;
+    }
+
+    navigator.clipboard.writeText(data.join("\n"));
+    alert(`${type.toUpperCase()} UID copied to clipboard`);
 }
 
-function copyBack() {
-    const back = [];
-    document.querySelectorAll(".back").forEach(td => {
-        back.push(td.parentElement.firstChild.textContent);
-    });
-    navigator.clipboard.writeText(back.join("\n"));
-}
+function downloadExcel(type) {
+    const rows = document.querySelectorAll("#result-table tbody tr");
+    let lines = [["UID", "Password", "Status"]];
 
-function copyDuplicate() {
-    const input = document.getElementById("uid-input").value.trim();
-    if (!input) return;
-    const uidArray = input.split(/\s+/);
-    const seen = {};
-    const duplicates = [];
-    uidArray.forEach(uid => {
-        if (seen[uid]) duplicates.push(uid);
-        else seen[uid] = true;
-    });
-    navigator.clipboard.writeText(duplicates.join("\n"));
-}
+    rows.forEach(row => {
+        const uid = row.children[0].innerText;
+        const pass = row.children[1].innerText;
+        const status = row.children[2].innerText;
 
-function downloadReport() {
-    let text = "UID Report:\n";
-    document.querySelectorAll("#result-table tbody tr").forEach(row => {
-        text += row.children[0].innerText + " - " + row.children[1].innerText + "\n";
+        if ((type === 'ok' && status === 'OK') || (type === 'back' && status === 'BACK')) {
+            lines.push([uid, pass, status]);
+        }
     });
-    const blob = new Blob([text], { type: "text/plain" });
-    const a = document.createElement("a");
+
+    let csvContent = lines.map(e => e.join("\t")).join("\n");
+    let blob = new Blob([csvContent], { type: "application/vnd.ms-excel" });
+    let a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "uid-report.txt";
+    a.download = `${type.toUpperCase()}_UID_Report.xlsx`;
     a.click();
 }
