@@ -43,7 +43,7 @@ function processUID() {
     document.getElementById("back-uid").innerText = back.length;
     document.getElementById("duplicate-uid").innerText = duplicates.size;
 
-    const rate = ok.length < 100 ? 12.00 : 12.50;
+    const rate = ok.length < 200 ? 12.00 : 12.50;
     const amount = ok.length * rate;
     document.getElementById("amount").innerText = amount;
 
@@ -113,3 +113,4 @@ function downloadExcel(type) {
     a.download = `${type.toUpperCase()}_UID_Report.xlsx`;
     a.click();
 }
+
