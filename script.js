@@ -1,10 +1,23 @@
-document.addEventListener("DOMContentLoaded", () => {
+indow.onload = () => {
 document.getElementById("dashboard").style.display = "block";
-window.onload = () => {
-    document.getElementById("dashboard").style.display = "block";
-    document.getElementById("display-name").innerText = "USER";
-    document.getElementById("today-date").innerText = new Date().toLocaleDateString();
+document.getElementById("display-name").innerText = "USER";
+document.getElementById("today-date").innerText = new Date().toLocaleDateString();
 };
+
+function login() {
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
+    const found = users.find(u => u.username === user && u.password === pass);
+
+    if (found) {
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        document.getElementById("display-name").innerText = found.name;
+        document.getElementById("today-date").innerText = new Date().toLocaleDateString();
+    } else {
+        document.getElementById("login-error").innerText = "Invalid Credentials!";
+    }
+}
 
 function processUID() {
     const input = document.getElementById("uid-input").value.trim();
@@ -36,7 +49,7 @@ function processUID() {
     document.getElementById("back-uid").innerText = back.length;
     document.getElementById("duplicate-uid").innerText = duplicates.size;
 
-    const rate = ok.length < 200 ? 12.00 : 12.50;
+    const rate = ok.length < 200 ? 8.00 : 8.30;
     const amount = ok.length * rate;
     document.getElementById("amount").innerText = amount;
 
