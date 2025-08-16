@@ -1,49 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SK COMMUNITY</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UID REPORT SYSTEM - SK SHUVOJIT</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  
+    <div id="dashboard" style="display: none;">
+        <h1>☠ SK-SHUVOJIT ☠</h1>
+        <h3>Welcome <span id="display-name"></span></h3>
+        <h2>TODAY DATE : <span id="today-date"></span></h2>
+        
+        <h3>14 Date 00 Friends Two Factor Report</h3>
+        <p>Member Rate: <span id="member-rate">8.00</span> TK</p>
+        <p>200+ Rate  : <span id="admin-rate">8.30</span> TK</p>
 
-  <!-- Dashboard Section -->
-  <div id="dashboard" style="display: block;">
-      <h2>Welcome, <span id="display-name">USER</span></h2>
-      <p>Date: <span id="today-date"></span></p>
+        <textarea id="uid-input" placeholder="Paste UID & PASS here... (UID[TAB]PASS)"></textarea>
+        <button onclick="processUID()">Check Report</button>
 
-      <textarea id="uid-input" placeholder="Enter UID + Password list here"></textarea>
-      <button onclick="processUID()">Process</button>
+        <div id="report">
+            <h2>Your Report</h2>
+            <p>Total UID: <span id="total-uid">0</span></p>
+            <p>✅ OK UID: <span id="ok-uid">0</span></p>
+            <p>🚫 Back UID: <span id="back-uid">0</span></p>
+            <p>🔁 Duplicate UID: <span id="duplicate-uid">0</span></p>
+            <h3>💵 Total Amount: <span id="amount">0</span> TK</h3>
 
-      <div>
-          <p>Total UID: <span id="total-uid">0</span></p>
-          <p>OK UID: <span id="ok-uid">0</span></p>
-          <p>BACK UID: <span id="back-uid">0</span></p>
-          <p>Duplicate UID: <span id="duplicate-uid">0</span></p>
-          <p>Total Amount: <span id="amount">0</span></p>
-      </div>
+            <button onclick="downloadExcel('ok')">📥 Download OK UID (.xlsx)</button>
+            <button onclick="downloadExcel('back')">📥 Download BACK UID (.xlsx)</button>
+            <button onclick="copyUIDs('ok')">📋 Copy OK UID</button>
+            <button onclick="copyUIDs('back')">📋 Copy BACK UID</button>
+            <button onclick="copyUIDs('duplicate')">📋 Copy DUPLICATE UID</button>
 
-      <button onclick="copyUIDs('ok')">Copy OK UID</button>
-      <button onclick="copyUIDs('back')">Copy BACK UID</button>
-      <button onclick="copyUIDs('duplicate')">Copy DUPLICATE UID</button>
+            <table id="result-table">
+                <thead>
+                    <tr>
+                        <th>UID</th>
+                        <th>PASS</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 
-      <button onclick="downloadExcel('ok')">Download OK Report</button>
-      <button onclick="downloadExcel('back')">Download BACK Report</button>
-
-      <table id="result-table" border="1">
-          <thead>
-              <tr>
-                  <th>UID</th>
-                  <th>Password</th>
-                  <th>Status</th>
-              </tr>
-          </thead>
-          <tbody></tbody>
-      </table>
-  </div>
-
-  <script src="users.js"></script>
-  <script src="script.js"></script>
+    <script src="users.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
