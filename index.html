@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UID REPORT SYSTEM - SK SHUVOJIT</title>
     <link rel="stylesheet" href="style.css">
+    .header-bar{margin:20px auto;display:inline-flex;align-items:center;gap:10px;background:rgba(0,0,0,.5);border-radius:16px;padding:15px 30px;backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);position:relative;overflow:hidden}
+    .header-bar::before{content:'';position:absolute;top:50%;left:50%;width:250%;height:250%;background:radial-gradient(circle at center,rgba(0,255,255,.15),transparent 50%);animation:continuous-header-glow 8s linear infinite;z-index:1}
+    @keyframes continuous-header-glow{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
+    .site-name{font-family:'Orbitron',sans-serif;font-size:1.6em;font-weight:700;display:flex;gap:5px;position:relative;z-index:2}
+    .site-name .b{color:#00ff00}.site-name .d{color:red}
 </head>
 <body>
     <div id="dashboard">
@@ -54,5 +59,6 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
