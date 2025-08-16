@@ -1,15 +1,9 @@
-function login() {
-    const user = document.getElementById("username").value.trim();
-    const pass = document.getElementById("password").value.trim();
-    const found = users.find(u => u.username === user && u.password === pass);
-
     if (found) {
-        document.getElementById("login-section").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
         document.getElementById("display-name").innerText = found.name;
         document.getElementById("today-date").innerText = new Date().toLocaleDateString();
     } else {
-        document.getElementById("login-error").innerText = "Invalid Credentials!";
+       
     }
 }
 
@@ -113,4 +107,5 @@ function downloadExcel(type) {
     a.download = `${type.toUpperCase()}_UID_Report.xlsx`;
     a.click();
 }
+
 
