@@ -1,11 +1,7 @@
-    if (found) {
-        document.getElementById("dashboard").style.display = "block";
-        document.getElementById("display-name").innerText = found.name;
-        document.getElementById("today-date").innerText = new Date().toLocaleDateString();
-    } else {
-       
-    }
-}
+document.addEventListener("DOMContentLoaded", () => {
+document.getElementById("dashboard").style.display = "block";
+document.getElementById("today-date").innerText = new Date().toLocaleDateString();
+});
 
 function processUID() {
     const input = document.getElementById("uid-input").value.trim();
@@ -107,5 +103,6 @@ function downloadExcel(type) {
     a.download = `${type.toUpperCase()}_UID_Report.xlsx`;
     a.click();
 }
+
 
 
